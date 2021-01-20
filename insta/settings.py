@@ -14,10 +14,11 @@ import os
 from pathlib import Path
 import dj_database_url
 import cloudinary
+import django_heroku
 from decouple import config,Csv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -26,12 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '=8-^k*#1q0m#911h6a7mrg@gqd^u$t_o5(3sdu4u+k#^^x!t)j'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-MODE=config("MODE", default="dev")
-DEBUG = config('DEBUG', default=False, cast=bool)
-# development
-if config('MODE')=="dev":
-   DATABASES = {
+DATABASES = {
        'default': {
            'ENGINE': 'django.db.backends.postgresql_psycopg2',
            'NAME': 'insta',
@@ -39,6 +35,23 @@ if config('MODE')=="dev":
            'PASSWORD': 'sokomoko',
            'HOST':'127.0.0.1',
            'PORT':'5432',
+       }
+       
+   }
+# SECURITY WARNING: don't run with debug turned on in production!
+MODE=config("MODE", default="dev")
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
+# development
+if config('MODE')=="dev":
+   DATABASES = {
+       'default': {
+           'ENGINE': 'django.db.backends.postgresql_psycopg2',
+           'NAME': config('DB_NAME'),
+           'USER': config('DB_USER'),
+           'PASSWORD': config('DB_PASSWORD'),
+           'HOST': config('DB_HOST'),
+           'PORT': '',
        }
        
    }
@@ -170,4 +183,4 @@ LOGIN_REDIRECT_URL='gram-landing'
 LOGIN_URL='login'
 
 # Configure Django App for Heroku.
-
+django_heroku.settings(locals())
