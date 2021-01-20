@@ -10,7 +10,7 @@
             <h2><a class="article-title" href="{% url 'post-detail' post.id %}"><b style="color: black;">View Image</b></a></h2>
             <p class="article-content">{{ post.caption }}</p>
           </div>
-          <a class="mr-2" href="{% url 'comment' post.id %}" style="color: #000;"><b>Coments</b></a>
+          <a class="mr-2" href="{% url 'comment' post.id %}" style="color: #000;"><b>Comments</b></a>
           {% if user.is_authenticated %}
           <form action="{% url 'like_post' post.pk %}" method="POST">
             {% csrf_token %}
