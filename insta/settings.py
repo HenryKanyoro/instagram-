@@ -115,10 +115,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'insta.wsgi.application'
 
-
+ALLOWED_HOSTS=['*','.herokuapp.com']
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
+DEBUG = True
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
